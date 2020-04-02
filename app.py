@@ -7,7 +7,7 @@ import time,re
 
 app = Flask(__name__)
 app.secret_key = "super secret key"
-
+URL='YOUR SERVER URL + /generateToken'  #localhost/generateToken
 
 
 
@@ -26,7 +26,7 @@ def authenticate():
     client_secret=request.form['secret']
     session['client_id']=client_id
     session['client_session']=client_secret
-    url='''https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/gmail.readonly&access_type=offline&include_granted_scopes=true&response_type=code&redirect_uri=https://botgmail.herokuapp.com/generateToken&client_id={}'''.format(client_id)
+    url=f'''https://accounts.google.com/o/oauth2/v2/auth?scope=https://www.googleapis.com/auth/gmail.readonly&access_type=offline&include_granted_scopes=true&response_type=code&redirect_uri={URL}&client_id={}'''.format(client_id)
     return redirect(url)
 
 
@@ -37,7 +37,7 @@ def generateToken():
     client_id=session['client_id']
     client_secret=session['client_session']
     url=f'''
-    https://oauth2.googleapis.com/token?client_id={client_id}&grant_type=authorization_code&code={code}&redirect_uri=https://botgmail.herokuapp.com/generateToken&client_secret={client_secret}'''
+    https://oauth2.googleapis.com/token?client_id={client_id}&grant_type=authorization_code&code={code}&redirect_uri={URL}&client_secret={client_secret}'''
 
     response=requests.post(url=url)
     response_data=json.loads(response.text)
