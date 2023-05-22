@@ -20,7 +20,7 @@ pyexcel==0.5.15
 pyexcel-io==0.5.20
 pyexcel-webio==0.1.4
 query-string==2019.4.13
-requests==2.23.0
+requests==2.31.0
 texttable==1.6.2
 urllib3==1.25.8
 Werkzeug==1.0.0
